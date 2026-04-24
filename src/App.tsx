@@ -125,7 +125,7 @@ export default function App() {
           <Tooltip title="Source">
             <IconButton
               component="a"
-              href="https://github.com/"
+              href="https://github.com/Jboling/qr-code-generator"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
