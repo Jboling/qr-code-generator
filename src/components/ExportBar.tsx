@@ -60,12 +60,13 @@ function buildExportOptions(
   height: number,
   format: ExportFormat,
 ): Options {
+  const reference = Math.min(width, height);
   const options: Options = {
     width,
     height,
     type: format === 'svg' ? 'svg' : 'canvas',
     data: data || ' ',
-    margin: style.margin,
+    margin: Math.round(style.margin * reference),
     qrOptions: { errorCorrectionLevel: style.errorCorrection },
     dotsOptions: { color: style.foreground, type: style.dotStyle },
     cornersSquareOptions: {
@@ -82,7 +83,7 @@ function buildExportOptions(
     imageOptions: {
       hideBackgroundDots: logo.hideBackgroundDots,
       imageSize: logo.size,
-      margin: logo.margin,
+      margin: Math.round(logo.margin * reference),
       crossOrigin: 'anonymous',
     },
   };

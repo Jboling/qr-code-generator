@@ -107,15 +107,16 @@ export function LogoEditor({ logo, onChange }: LogoEditorProps) {
 
       <Stack spacing={1}>
         <Typography variant="body2" color="text.secondary">
-          Logo padding: {logo.margin}px
+          Logo padding: {(logo.margin * 100).toFixed(1)}%
         </Typography>
         <Slider
           min={0}
-          max={40}
-          step={1}
+          max={0.08}
+          step={0.005}
           value={logo.margin}
           onChange={(_, v) => onChange({ ...logo, margin: v as number })}
           valueLabelDisplay="auto"
+          valueLabelFormat={(v) => `${((v as number) * 100).toFixed(1)}%`}
           disabled={!logo.dataUrl}
         />
       </Stack>

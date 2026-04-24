@@ -159,15 +159,17 @@ export function StyleEditor({ style, onChange }: StyleEditorProps) {
             Quiet zone (outer margin)
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {style.margin}px
+            {(style.margin * 100).toFixed(1)}%
           </Typography>
         </Stack>
         <Slider
           min={0}
-          max={40}
+          max={0.1}
+          step={0.005}
           value={style.margin}
           onChange={(_, v) => set({ margin: v as number })}
           valueLabelDisplay="auto"
+          valueLabelFormat={(v) => `${((v as number) * 100).toFixed(1)}%`}
           sx={{ mt: 0.5 }}
         />
       </Box>

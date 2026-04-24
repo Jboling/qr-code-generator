@@ -8,7 +8,6 @@ export interface QrPreviewProps {
   data: string;
   style: QrStyle;
   logo: LogoConfig;
-  onInstanceReady?: (instance: QRCodeStyling) => void;
 }
 
 const PREVIEW_SIZE = 320;
@@ -24,7 +23,7 @@ function buildOptions(
     height: size,
     type: 'svg',
     data: data || ' ',
-    margin: style.margin,
+    margin: Math.round(style.margin * size),
     qrOptions: {
       errorCorrectionLevel: style.errorCorrection,
     },
@@ -46,7 +45,7 @@ function buildOptions(
     imageOptions: {
       hideBackgroundDots: logo.hideBackgroundDots,
       imageSize: logo.size,
-      margin: logo.margin,
+      margin: Math.round(logo.margin * size),
       crossOrigin: 'anonymous',
     },
   };
@@ -58,12 +57,7 @@ function buildOptions(
   return options;
 }
 
-export function QrPreview({
-  data,
-  style,
-  logo,
-  onInstanceReady,
-}: QrPreviewProps) {
+export function QrPreview({ data, style, logo }: QrPreviewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const instanceRef = useRef<QRCodeStyling | null>(null);
 
@@ -78,7 +72,6 @@ export function QrPreview({
     instanceRef.current = instance;
     containerRef.current.innerHTML = '';
     instance.append(containerRef.current);
-    onInstanceReady?.(instance);
     return () => {
       instanceRef.current = null;
     };
@@ -86,10 +79,7 @@ export function QrPreview({
 
   useEffect(() => {
     instanceRef.current?.update(options);
-    if (instanceRef.current) {
-      onInstanceReady?.(instanceRef.current);
-    }
-  }, [options, onInstanceReady]);
+  }, [options]);
 
   return (
     <Box

@@ -95,6 +95,10 @@ export interface QrStyle {
   cornerSquareStyle: CornerSquareStyle;
   cornerDotStyle: CornerDotStyle;
   errorCorrection: ErrorCorrectionLevel;
+  /** Quiet zone / outer margin, expressed as a fraction of the QR render
+   *  size (0 = no margin, 0.08 = 8% of the render size on each side).
+   *  Stored as a proportion so the preview and exports match regardless
+   *  of output pixel size. */
   margin: number;
 }
 
@@ -102,6 +106,8 @@ export interface LogoConfig {
   dataUrl: string | null;
   filename: string | null;
   size: number;
+  /** Padding around the logo, expressed as a fraction of the QR render
+   *  size. Proportional so preview matches exports. */
   margin: number;
   hideBackgroundDots: boolean;
 }

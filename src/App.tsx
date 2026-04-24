@@ -19,6 +19,7 @@ import { ContentEditor } from './components/ContentEditor';
 import { StyleEditor } from './components/StyleEditor';
 import { LogoEditor } from './components/LogoEditor';
 import { ExportBar } from './components/ExportBar';
+import { Print3dExporter } from './components/Print3dExporter';
 import { QrPreview } from './components/QrPreview';
 import { buildQrData, defaultContentFor } from './content';
 import type {
@@ -36,14 +37,14 @@ const DEFAULT_STYLE: QrStyle = {
   cornerSquareStyle: 'extra-rounded',
   cornerDotStyle: 'dot',
   errorCorrection: 'Q',
-  margin: 8,
+  margin: 0.025,
 };
 
 const DEFAULT_LOGO: LogoConfig = {
   dataUrl: null,
   filename: null,
   size: 0.3,
-  margin: 4,
+  margin: 0.01,
   hideBackgroundDots: true,
 };
 
@@ -155,6 +156,18 @@ export default function App() {
               description="Drop an image into the center. Works best with an error correction level of Q or H."
             >
               <LogoEditor logo={logo} onChange={setLogo} />
+            </Section>
+
+            <Section
+              title="3D Printing"
+              description="Export a slicer-friendly SVG with square modules and a configurable quiet zone."
+            >
+              <Print3dExporter
+                data={data}
+                errorCorrection={style.errorCorrection}
+                logo={logo}
+                filenameBase={filenameBase}
+              />
             </Section>
           </Stack>
 
